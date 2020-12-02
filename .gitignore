@@ -1,3 +1,4 @@
+
 # Prerequisites
 *.d
 
@@ -30,6 +31,10 @@
 
 # Executables
 *.exe
+*.exc
+*.com
+*.fcm
+!lazygit.exe
 *.out
 *.app
 *.i*86
