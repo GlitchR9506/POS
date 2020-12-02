@@ -1,0 +1,66 @@
+; Special
+YEAR: db "2020",0
+; Verison
+VRELESE: db "0",0
+VBETA__: db "0",0
+VALPHA_: db "1",0
+
+; CopyRights
+C0000: db "(c)CopyRight",0
+C0001: db "FOS",0
+C0002: db "F.lash O.perating S.ystem ",0
+C0003: db "0.0.1",0
+C0004: db " Beta ",0
+
+; Debug Messages
+D0000: db "General DEBUG Message",0
+D0001: db "Interrupt 0",0
+D0002: db "Interrupt 1",0
+D0003: db "Interrupt 2",0
+D0004: db "Interrupt 3",0
+D0005: db "Interrupt 4",0
+D0006: db "Interrupt 5",0
+D0007: db "Interrupt 6",0
+D0008: db "Interrupt 7",0
+D0009: db "Interrupt 8",0
+D0010: db "Interrupt 9",0
+D0011: db "Interrupt 10",0
+D0012: db "Interrupt 11",0
+D0013: db "Interrupt 12",0
+D0014: db "Interrupt 13",0
+D0015: db "Interrupt 14",0
+D0016: db "Interrupt 15",0
+D0017: db "Interrupt 16",0
+
+; Normal Messages
+M0000: db "                                                                                ",0
+M0001: db "Loading...",0
+M0002: db "F.lash O.perating S.ystem Initialized.",0
+M0003: db "Loading Drivers...",0
+M0004: db "Press Any Button To Stop Driver Loading",0
+M0005: db "Looping...",0
+M0006: db "Interrupt'd",0
+
+; Errors
+E0000: db "Division By Zero Exception",0
+E0001: db "Debug Exception",0
+E0002: db "Non Maskable Interrupt Exception",0
+E0003: db "BreakPoint Exception",0
+E0004: db "Into Detected Overflow Exception",0
+E0005: db "Out Of Bounds Excpetion",0
+E0006: db "Invalid OpCode Exception",0
+E0007: db "No CoProcessor Exception",0
+E0008: db "Double Fault Exception",0
+E0009: db "CoProcessor Segment Overrun Exception",0
+E0010: db "Bad TTS Exception",0
+E0011: db "Segment Not Present Exception",0
+E0012: db "Stack Fault Exception",0
+E0013: db "General Protection Fault Exception",0
+E0014: db "Page Fault Exception",0
+E0015: db "Unkown Interrupt Exception",0
+E0016: db "CoProcessor Fault Exception",0
+E0017: db "Alignment Check Exception 80486+",0
+E0018: db "Machine Check Exception 80586+",0
+E0019: db "SIMD Floating Point Exception",0
+E0032: db "External Interrupt 32/(32 to 255)",0
+E0033: db "Exception Occured",0

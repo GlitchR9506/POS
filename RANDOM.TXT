@@ -1,0 +1,35 @@
+Random Stuff
+Interrupts
+
+INT 00H-1FH Are For Exceptions
+INT 20H-2FH Are Reserved By FOS
+INT 30H-3FH Are Used By The PIC
+INT 40H-7FH Are Unused
+INT 80H-8FH Are Reserved By FOS
+INT 90H---- Are Unused
+
+File Structure
+
+C:\
+C:\FOS\
+C:\FOS\SYS\
+C:\FOS\MOD\
+C:\FOS\DRV\
+C:\BIN\
+C:\PRG\
+C:\USR\
+C:\CONFIG.SYS
+C:\COMMAND.FCM
+C:\HELP.FCM
+
+File Formats That You Might See
+.SL        Shared Library
+.KME       Kernal Module Extension
+.FCM       Renamed COM File
+.EXC       ELF Executable File
+.DRV       Driver
+.INI       Initialization File
+.ZIP       ZIP Archive
+.TAR       TAR Archive
+
+

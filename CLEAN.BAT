@@ -1,0 +1,3 @@
+cd binaries
+del *.*
+
