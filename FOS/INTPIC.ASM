@@ -16,8 +16,19 @@ _isr48: ; PIC IRQ0
     ;sti
     iret
 _isr49: ; PIC IRQ1
-    pusha
-    iret
+    ;pusha
+    ;popa
+
+    mov ah, 0x57
+    mov esi,D0002
+    call PRINTSTRING
+	
+    push byte 0
+    push byte 50
+    call pic1_eoi
+	sti
+	
+	;iret
     ;;cli                 ; Disable Interrupts
     ;pusha
 
@@ -122,9 +133,9 @@ _isr55: ; PIC IRQ7
     ;cli                 ; Disable Interrupts
     pusha
 
-    mov ah, 0x57
-    mov esi,D0008
-    call PRINTSTRING
+    ;mov ah, 0x57
+    ;mov esi,D0008
+    ;call PRINTSTRING
     
     
     push byte 0
@@ -263,12 +274,14 @@ _isr64: ; PIC IRQ16
 
 pic1_eoi:
 
+	add esp, 2
     MOV AL,00020H
     OUT 00020H,AL
     ;sti
     ret
 pic2_eoi:
 
+	add esp, 2
     MOV AL,00020H
     OUT 00020H,AL
     MOV AL,00020H

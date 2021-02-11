@@ -2,13 +2,9 @@
 ;     nasm -f bin enterpm.asm -o enterpm.com
 
 ;ENTER_MODE_PROTECT32:
-
-;section realmode
 _start:
 
-STACK32_TOP EQU 0x200000
-CODE32_REL  EQU 0x110000
-VIDEOMEM    EQU 0x0b8000
+extern code_32bit
 
 ;_start 100h
 
@@ -44,9 +40,6 @@ not_prot_mode:
 
     ; Compute linear address of label code_32bit
     ; Using (segment << 4) + offset
-	
-	
-	
     add ebx,code_32bit  ; EBX = (CS << 4) + code_32bit
 
     push dword 0x08     ; CS Selector
@@ -120,75 +113,3 @@ gdt_end:
 ; Align code to 4 byte boundary. code_32bit label is
 ; relative to the origin point 100h
 align 4
-
-
-code_32bit:
-use32
-; Set virtual memory address of pm code/data to CODE32_REL
-; We will be relocating this section from low memory where DOS
-; originally loaded it.
-;section protectedmode vstart=CODE32_REL, valign=4
-start_32:
-    cld                 ; Direction flag forward
-    mov eax,0x10        ; 0x10 is flat selector for data
-    mov ds,eax
-    mov es,eax
-    mov fs,eax
-    mov gs,eax
-    mov ss,eax
-    mov esp,STACK32_TOP ; Should set ESP to a usable memory location
-                        ; Stack will be grow down from this location
-
-    mov edi,start_32    ; EDI = linear address where PM code will be copied
-    mov esi,ebx         ; ESI = linear address of code_32bit
-    mov ecx,PMSIZE_LONG ; ECX = number of DWORDs to copy
-    rep movsd           ; Copy all code/data from code_32bit to CODE32_REL
-    jmp 0x08:.relentry  ; Absolute jump to relocated code
-
-.relentry:
-    ;mov ah, 0x57        ; Attribute white on magenta
-
-    ; Print a string to display
-    ;mov esi,M0001         ; ESI = address of string to print
-    ;mov edi,VIDEOMEM    ; EDI = base address of video memory
-    ;call PRINTSTRING
-    ;cli
-    ;CALL PROTECTMODESTART
-
-    call pic_remap
-    lidt [idt_info]
-
-    jmp STARTUP
-STARTUP:
-    xor ecx,ecx
-    mov ah, 0x27
-    mov esi,M0000
-    call PRINTSTRING
-
-    sti
-    ;INT 32
-
-	jmp entry
-    ;.endloop:
-        ;hlt
-        ;nop
-        ;mov ah, ah
-        ;mov esi,M0000
-        ;call PRINTSTRING
-
-        ;mov ah, 0x57
-        ;mov esi,M0000
-        ;call PRINTSTRING
-    ;jmp .endloop
-    
-    %include "..\INC\VGA.ASM"
-    %include "..\MESSAGES\USA.MSG"
-    %include "..\FOS\FAT.ASM"
-    %include "..\FOS\IDT.ASM"
-    %include "..\FOS\INT.ASM"
-    %include "..\FOS\INTEXP.ASM"
-    %include "..\FOS\INTPIC.ASM"
-    %include "ENTRY.ASM"
-    ;%include "..\FOS\INTFOS.ASM"
-PMSIZE_LONG equ ($-$$+3)>>2; Number of DWORDS that the protected mode
-                            ;code and data takes up (rounded up)

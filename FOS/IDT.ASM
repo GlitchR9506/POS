@@ -509,12 +509,13 @@ pic_remap: ; IBM Fucked Up
     ;MOV AL,000AEH              ;
     ;OUT 000A1H,AL              ; Cont.
 
-    ;MOV AL,10111111B           ;
-    MOV AL,000FDH
+    MOV AL,10111111B           ;
+    ;MOV AL,000BFH
     OUT 00021H,AL              ; Disable Interrupts
     MOV AL,000FFH              ;
     OUT 000A1H,AL              ; Cont.
-
+	
+	
     ;OUT $00011H,$00020H          ; Reinitialize ICW1
     ;OUT $00011H,$000A0H          ; Cont.
     ;OUT $00020H,$00021H          ; Reinitialize ICW2
@@ -544,12 +545,9 @@ pic_remap: ; IBM Fucked Up
 
 _isr32: ; FOS Reserved
     cli                 ; Disable Interrupts
-    ;push byte 0         ; Dummy Error Code
-    ;push byte 32        ; Keep Stack Uniform
-    ;mov esi,D0001
+    push byte 0         ; Dummy Error Code
+    push byte 32        ; Keep Stack Uniform
     jmp isr_common      ; Goto The ISR Common
-    sti
-    iret
 _isr33: ; FOS Standard Interrupt
     cli
     push byte 0
@@ -649,6 +647,7 @@ isr_common:             ; ISR Common Handler
     ;pop ds              ; Pop DS
     ;popa                ; Pop All
     ;add esp,8           ;
+	add esp, 2
     sti
     iret                ; Exit Interrupt
     ;ret
